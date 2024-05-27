@@ -49,7 +49,6 @@ const mutations = {
   },
   update(state: State, data: ITodo) {
     const tmp = [...state.todos];
-    
     const i = tmp.findIndex((el) => el.id == data.id);
     if (i > -1) {
       tmp[i] = data;
@@ -57,8 +56,14 @@ const mutations = {
     state.todos = [...tmp];
     state.busy = false;
   },
-  remove(state: State, id: string) {
-    state.todos = state.todos.filter((t) => t.id !== id);
+  remove(state: State, data: ITodo) {
+    const tmp = [...state.todos];
+    const i = tmp.findIndex((el) => el.id == data.id);
+    if (i > -1) {
+      tmp.splice(i, 1);
+    }
+    state.todos = [...tmp];
+    state.busy = false;
   },
   busy(state: State) {
     state.busy = true;
@@ -82,6 +87,10 @@ const actions = {
   addTodo: ({ commit }: any, data: any) => {
     commit('busy');
     commit('add', data);
+  },
+  remove: ({ commit }: any, data: any) => {
+    commit('busy');
+    commit('remove', data);
   },
   getNews: ({ commit }: any) => {
     commit('busy');
