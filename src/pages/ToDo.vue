@@ -1,7 +1,6 @@
-<script lang="ts" setup>
+<script setup>
 import ToDoList from '@/components/ToDo/ToDoList.vue';
 import News from "@/components/News/News.vue";
-//@ts-ignore
 import { useStore } from 'vuex';
 const $store = useStore();
 const news =$store.getters.getNews;

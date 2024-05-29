@@ -1,26 +1,6 @@
 import $api from '@/api';
 
-type ITodo = {
-  id: string;
-  thumbnail?: string;
-  tilte: string;
-  description: string;
-  state: 'open' | 'inprogress' | 'completed';
-};
-
-type INews = {
-  id: string;
-  thumbnail?: string;
-  tilte: string;
-  description: string;
-};
-type State = {
-  busy: boolean;
-  error?: any;
-  todos: ITodo[];
-  news: INews[];
-};
-const state: State = {
+const state = {
   busy: false,
   error: null,
   todos: [],
@@ -28,26 +8,26 @@ const state: State = {
 };
 
 const getters = {
-  getOpen: (state: State) => state.todos.filter((t) => t.state === 'open'),
-  getInprogress: (state: State) => state.todos.filter((t) => t.state === 'inprogress'),
-  getCompleted: (state: State) => state.todos.filter((t) => t.state === 'completed'),
-  getNews: (state: State) => state.news,
-  getTodos: (state: State) => state.todos
+  getOpen: (state) => state.todos.filter((t) => t.state === 'open'),
+  getInprogress: (state) => state.todos.filter((t) => t.state === 'inprogress'),
+  getCompleted: (state) => state.todos.filter((t) => t.state === 'completed'),
+  getNews: (state) => state.news,
+  getTodos: (state) => state.todos
 };
 
 const mutations = {
-  load(state: State, data: ITodo[]) {
+  load(state, data) {
     state.todos = data;
     state.busy = false;
   },
-  getNews(state: State, data: any) {
+  getNews(state, data) {
     state.news = data;
     state.busy = false;
   },
-  add(state: State, data: ITodo) {
+  add(state, data) {
     state.todos.push(data);
   },
-  update(state: State, data: ITodo) {
+  update(state, data) {
     const tmp = [...state.todos];
     const i = tmp.findIndex((el) => el.id == data.id);
     if (i > -1) {
@@ -56,7 +36,7 @@ const mutations = {
     state.todos = [...tmp];
     state.busy = false;
   },
-  remove(state: State, data: ITodo) {
+  remove(state, data) {
     const tmp = [...state.todos];
     const i = tmp.findIndex((el) => el.id == data.id);
     if (i > -1) {
@@ -65,13 +45,13 @@ const mutations = {
     state.todos = [...tmp];
     state.busy = false;
   },
-  busy(state: State) {
+  busy(state) {
     state.busy = true;
   }
 };
 
 const actions = {
-  getAll: ({ commit }: any) => {
+  getAll: ({ commit }) => {
     commit('busy');
     new Promise(async (resolve) => {
       $api.todo.getAll().then((data) => {
@@ -80,19 +60,19 @@ const actions = {
       });
     });
   },
-  editTodo: ({ commit }: any, data: any) => {
+  editTodo: ({ commit }, data) => {
     commit('busy');
     commit('update', data);
   },
-  addTodo: ({ commit }: any, data: any) => {
+  addTodo: ({ commit }, data) => {
     commit('busy');
     commit('add', data);
   },
-  remove: ({ commit }: any, data: any) => {
+  remove: ({ commit }, data) => {
     commit('busy');
     commit('remove', data);
   },
-  getNews: ({ commit }: any) => {
+  getNews: ({ commit }) => {
     commit('busy');
     new Promise(async (resolve) => {
       $api.news.getNews().then((data) => {

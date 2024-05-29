@@ -1,34 +1,29 @@
 import $api from '@/api';
 
-type State = {
-  busy: boolean;
-  error?: any;
-  user: string;
-};
-const state: State = {
+const state = {
   busy: false,
   error: null,
   user: ''
 };
 
 const getters = {
-  getUserName: (state: State) => {
+  getUserName: (state) => {
     return state.user;
   }
 };
 
 const mutations = {
-  set(state: State, data: string) {
+  set(state, data) {
     state.user = data;
     state.busy = false;
   },
-  busy(state: State) {
+  busy(state) {
     state.busy = true;
   }
 };
 
 const actions = {
-  getUserName: ({ commit }: any) => {
+  getUserName: ({ commit }) => {
     commit('busy');
     new Promise(async (resolve) => {
       $api.user.getUserName().then((data) => {

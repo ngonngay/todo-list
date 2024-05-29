@@ -1,7 +1,7 @@
-<script setup lang="ts">
-const emit = defineEmits<{ (e: 'next'): void; (e: 'edit'): void; (e: 'remove'): void }>();
+<script setup>
+const emit = defineEmits(['next', 'edit', 'remove']);
 const props = defineProps(['todo']);
-const label: any = {
+const label = {
   open: 'Start',
   inprogress: 'Complete'
 };

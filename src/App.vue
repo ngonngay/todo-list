@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 //@ts-ignore
 import { useStore } from 'vuex';
 

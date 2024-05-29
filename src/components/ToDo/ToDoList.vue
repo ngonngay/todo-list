@@ -1,29 +1,28 @@
-<script setup lang="ts">
+<script setup>
 // import { computed } from 'vue';
 import { computed, ref } from 'vue';
 import ToDoItem from './ToDoItem.vue';
 import Form from '@/components/common/Modal.vue';
-//@ts-ignore
 import { useStore } from 'vuex';
 const $store = useStore();
 const props = defineProps(['state']);
 const todosList = computed(() =>
-  $store.state.todos.todos.filter((t: any) => t.state == props.state)
+  $store.state.todos.todos.filter((t) => t.state == props.state)
 );
 
-let openForm = ref<boolean>(false);
-const target = ref<any>({});
+let openForm = ref(false);
+const target = ref({});
 
 function onAddNew() {
   target.value = {};
   openForm.value = !openForm.value;
 }
 
-function onEdit(item: any) {
+function onEdit(item) {
   target.value = item;
   openForm.value = !openForm.value;
 }
-function onStart(item: any) {
+function onStart(item) {
   $store.dispatch('editTodo', {
     ...item,
     state: item.state === 'open' ? 'inprogress' : 'completed'

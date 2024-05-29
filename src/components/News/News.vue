@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import NewItem from './NewItem.vue';
 const props = defineProps(['news']);
 </script>
