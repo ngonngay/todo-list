@@ -13,6 +13,15 @@ npm i
 ```bash
 npm run dev
 ```
+### Build the app
+
+```bash
+npm run build
+```
+
+```
+npx serve dist
+```
 ## Project Structure
 
 | Name | Description |
